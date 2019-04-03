@@ -22,7 +22,7 @@ import com.github.xincao9.ptk.core.util.Logger;
 
 /**
  * 状态检测线程
- *
+ * 
  * @author xincao9@gmail.com
  */
 public class Checker implements Runnable {
