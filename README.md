@@ -1,10 +1,5 @@
-## jswitcher
-
-![logo](https://github.com/xincao9/jswitcher/blob/master/logo.png)
-
-### Grayscale release, Service degradation
-
-Support for grayscale publishing of functions, service downgrade, Automated operation and maintenance
+# ptk (pressure test kit)
+Easy to use java based, stress test suite
 
 **_Maven dependency_**
 
