@@ -61,9 +61,7 @@ public class PTKCore {
             }
         }
         if (params.containsKey("-t")) {
-            if (Long.valueOf(params.get("-t")) > 0) {
-                t = Long.valueOf(params.get("-t"));
-            }
+            t = Long.valueOf(params.get("-t"));
         }
         if (!params.containsKey("-m")) {
             help();

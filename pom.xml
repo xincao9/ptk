@@ -7,14 +7,24 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <description>Easy to use java based, stress test suite</description>
-    <modules>
-        <module>ptk-core</module>
-    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <modules>
+        <module>ptk-core</module>
+        <module>ptk-sample</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.xincao9</groupId>
+                <artifactId>ptk-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <url>https://github.com/xincao9/ptk</url>
     <developers>
         <developer>
