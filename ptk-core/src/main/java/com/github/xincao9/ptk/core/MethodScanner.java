@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.service;
+package com.github.xincao9.ptk.core;
 
 import com.github.xincao9.ptk.core.annotation.scan.AnnotationDetector;
 import com.github.xincao9.ptk.core.annotation.scan.AnnotationDetector.TypeReporter;
 import com.github.xincao9.ptk.core.annotation.Test;
-import com.github.xincao9.ptk.core.interfaces.Method;
-import com.github.xincao9.ptk.core.util.Logger;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -27,28 +25,39 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
- *
+ * 扫描器
+ * 
  * @author xincao9@gmail.com
  */
-public class MethodService {
+public final class MethodScanner {
 
-    private Map<String, Method> methods = new HashMap<String, Method>();
-    private static MethodService methodService;
+    private Map<String, Method> methods = new HashMap();
+    private static MethodScanner methodService;
 
-    private MethodService() {
+    /**
+     * 构造器
+     */
+    private MethodScanner() {
         start();
     }
 
-    public static MethodService getInstance() {
-        if (MethodService.methodService == null) {
-            MethodService.methodService = new MethodService();
+    /**
+     * 获得实例
+     * 
+     * @return 方法服务
+     */
+    public static MethodScanner getInstance() {
+        if (MethodScanner.methodService == null) {
+            MethodScanner.methodService = new MethodScanner();
         }
-        return MethodService.methodService;
+        return MethodScanner.methodService;
     }
-
+    
+    /**
+     * 启动方法
+     */
     public void start() {
         long begin = System.currentTimeMillis();
         Logger.info("Scanning  annotation, this may take a while, please wait...");
@@ -61,7 +70,7 @@ public class MethodService {
      * 扫面所有的Method
      */
     public void scanForMethods() {
-        final Map<String, Method> innerMethods = new HashMap<String, Method>();
+        final Map<String, Method> innerMethods = new HashMap();
 
         /**
          * 内部匿名类
@@ -108,10 +117,10 @@ public class MethodService {
     }
 
     /**
-     * 获得name 对应的类 Method
+     * 获得方法
      *
-     * @param name
-     * @return
+     * @param name 方法名
+     * @return 方法
      */
     public Method getMethod(String name) {
         if (methods.containsKey(name)) {
@@ -122,15 +131,18 @@ public class MethodService {
     }
 
     /**
-     *
-     * @return
+     * 获得方法名列表
+     * 
+     * @return 方法名列表
      */
     public List<String> getMethodNames() {
-        List<String> names = new ArrayList<String>();
-        for (Entry<String, Method> e : methods.entrySet()) {
-            String name = e.getKey();
-            names.add(name);
+        List<String> names = new ArrayList();
+        if (methods == null || methods.isEmpty()) {
+            return names;
         }
+        methods.entrySet().stream().map((e) -> e.getKey()).forEachOrdered((name) -> {
+            names.add(name);
+        });
         return names;
     }
 }

@@ -13,20 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.interfaces;
+package com.github.xincao9.ptk.core;
 
-import com.github.xincao9.ptk.core.model.Report;
-import com.github.xincao9.ptk.core.util.Logger;
 import java.util.ArrayList;
 
 /**
- *
+ * 方法
+ * 
  * @author xincao9@gmail.com
  */
 public abstract class Method {
 
+    /**
+     * 执行逻辑
+     * 
+     * @param params 参数
+     * @throws Exception 异常
+     */
     abstract public void exec(Object params) throws Exception;
 
+    /**
+     * 运行方法
+     * 
+     * @param params 参数
+     */
     public final void run(Object params) {
         long startTime = System.currentTimeMillis();
         try {

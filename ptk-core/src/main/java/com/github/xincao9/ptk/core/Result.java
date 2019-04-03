@@ -13,13 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.interfaces;
+package com.github.xincao9.ptk.core;
 
 /**
- *
+ * 压测结果回调
+ * 
  * @author xincao9@gmail.com
  */
-public interface Source {
+public interface Result {
 
-    public int read();
+    /**
+     * 接口输出
+     * 
+     * @param concurrency 并发数
+     * @param total 请求总数
+     * @param messageSize 消息大小
+     * @param minRT 最小响应时间
+     * @param maxRT 最大响应时间
+     * @param averageRT 平均响应时间
+     * @param tps 每秒处理事务数
+     * @param errorNumber 错误率
+     */
+    public void output(int concurrency, int total, int messageSize, long minRT, long maxRT, double averageRT, double tps, double errorNumber);
 }

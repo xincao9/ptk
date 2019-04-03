@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.threads;
+package com.github.xincao9.ptk.core.thread;
 
-import com.github.xincao9.ptk.core.interfaces.Result;
-import com.github.xincao9.ptk.core.model.Report;
-import com.github.xincao9.ptk.core.service.TaskPoolService;
-import com.github.xincao9.ptk.core.util.Logger;
+import com.github.xincao9.ptk.core.Result;
+import com.github.xincao9.ptk.core.Report;
+import com.github.xincao9.ptk.core.Logger;
 
 /**
  * 状态检测线程
@@ -27,43 +26,60 @@ import com.github.xincao9.ptk.core.util.Logger;
  */
 public class Checker implements Runnable {
 
-    private static long CD = 1 * 1000;
-    private Result result;
+    private static Long cd = 1000L;
+    private static final Integer CONFIRM_NUMBER_MAX = 2;
+    private final Result result;
 
+    /**
+     * 构造器
+     * 
+     * @param result 结果回调
+     */
     private Checker(Result result) {
         this.result = result;
     }
 
+    /**
+     * 构造器
+     * 
+     * @param result 结果回调
+     */
     public static void start(Result result) {
-        start(-1, result);
+        start(cd, result);
     }
 
-    private static final TaskPoolService taskPool = TaskPoolService.getInstance();
-    public int CONFIRM_NUMBER = 0;
-    public static int CONFIRM_NUMBER_MAX = 2;
-
+    /**
+     * 构造器
+     * 
+     * @param cd 冷却时间
+     * @param result 结果回调
+     */
     public static void start(long cd, Result result) {
-        if (cd > 0) {
-            Checker.CD = cd;
-        }
+        Checker.cd = cd;
         Logger.info("状态检测线程启动");
         Checker checker = new Checker(result);
         Thread thread = new Thread(checker, "状态检测线程");
         thread.start();
     }
 
+    /**
+     * 运行方法
+     * 
+     */
     @Override
     public void run() {
+        int confirmNumber = 0;
         while (true) {
             try {
-                Thread.sleep(CD);
+                Thread.sleep(cd);
             } catch (InterruptedException ex) {
-                System.out.println(ex.getMessage());
+                Logger.info(ex.getMessage());
+                return;
             }
-            int size = taskPool.size();
-            if (CONFIRM_NUMBER >= CONFIRM_NUMBER_MAX) {
+            int size = Worker.size();
+            if (confirmNumber >= CONFIRM_NUMBER_MAX) {
                 Logger.info("正在关闭工作线程");
-                Worker.close();
+                Worker.shutdown();
                 Logger.info("状态检测线程关闭");
                 long endTime = System.currentTimeMillis();
                 Report report = Report.getInstance();
@@ -82,7 +98,7 @@ public class Checker implements Runnable {
                 return;
             }
             if (size == 0) {
-                CONFIRM_NUMBER++;
+                confirmNumber++;
             }
             Logger.info("飘过");
         }

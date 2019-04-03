@@ -13,17 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * 欢迎浏览和修改代码，有任何想法可以email我
- */
-package com.github.xincao9.ptk.core.interfaces;
+package com.github.xincao9.ptk.core.source;
+
+import com.github.xincao9.ptk.core.Source;
+import com.github.xincao9.ptk.core.thread.Worker;
 
 /**
- *
+ * 序列化数据源
+ * 
  * @author xincao9@gmail.com
  */
-public interface Result {
+public class SequenceSource implements Source {
 
-    public void output(int concurrency, int total, int messageSize, long minRT, long maxRT, double averageRT, double tps, double errorNumber);
+    private final int max;
 
+    /**
+     * 构造器
+     * 
+     * @param max 最大编号
+     */
+    public SequenceSource(int max) {
+        this.max = max;
+    }
+
+    /**
+     * 读取序列
+     * 
+     * @return 序列大小
+     */
+    @Override
+    public int read() {
+        for (int i = 1; i <= max; i++) {
+            Worker.submit(i);
+        }
+        return max;
+    }
 }

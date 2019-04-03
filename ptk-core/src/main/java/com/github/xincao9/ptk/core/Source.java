@@ -13,33 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.util;
-
-import com.github.xincao9.ptk.core.interfaces.Source;
-import com.github.xincao9.ptk.core.service.TaskPoolService;
+package com.github.xincao9.ptk.core;
 
 /**
- *
+ * 数据源
+ * 
  * @author xincao9@gmail.com
  */
-public class SequenceSource implements Source {
+public interface Source {
 
-    private static final TaskPoolService taskPool = TaskPoolService.getInstance();
-    private final int max;
-
-    public SequenceSource(int max) {
-        this.max = max;
-    }
-
-    @Override
-    public int read() {
-        for (int i = 1; i <= max; i++) {
-            try {
-                taskPool.add(i);
-            } catch (InterruptedException ex) {
-                return -1;
-            }
-        }
-        return max;
-    }
+    /**
+     * 读取数据
+     * 
+     * @return 读取总数
+     */
+    public int read();
 }

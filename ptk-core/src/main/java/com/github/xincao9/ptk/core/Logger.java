@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.util;
+package com.github.xincao9.ptk.core;
 
 import java.util.Date;
 
 /**
- *
+ * 记录器
+ * 
  * @author xincao9@gmail.com
  */
 public class Logger {
 
+    /**
+     * 信息
+     * 
+     * @param message 消息
+     */
     public static void info(Object message) {
         System.out.println(String.format("[%s-%s] %s", Thread.currentThread().getName(), new Date().toString(), message));
     }

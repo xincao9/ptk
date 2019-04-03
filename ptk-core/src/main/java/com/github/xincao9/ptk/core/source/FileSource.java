@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.util;
+package com.github.xincao9.ptk.core.source;
 
-import com.github.xincao9.ptk.core.interfaces.Source;
-import com.github.xincao9.ptk.core.service.TaskPoolService;
+import com.github.xincao9.ptk.core.Source;
+import com.github.xincao9.ptk.core.Logger;
+import com.github.xincao9.ptk.core.thread.Worker;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,23 +28,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 文件数据源
  *
  * @author xincao9@gmail.com
  */
 public class FileSource implements Source {
 
-    private String filename;
-    private String div;
-    private int[] indexs;
+    private final String filename;
+    private final String div;
+    private final int[] indexs;
     private int size = Integer.MAX_VALUE;
-    private static final TaskPoolService taskPool = TaskPoolService.getInstance();
 
+    /**
+     * 构造器
+     * 
+     * @param filename 文件名
+     * @param div 分隔符
+     * @param indexs 索引
+     */
     public FileSource(String filename, String div, int[] indexs) {
-        this.filename = filename;
-        this.div = div;
-        this.indexs = indexs;
+       this(filename, div, indexs, Integer.MAX_VALUE);
     }
 
+    /**
+     * 构造器
+     * 
+     * @param filename 文件名
+     * @param div 分隔符
+     * @param indexs 索引
+     * @param size 行号
+     */
     public FileSource(String filename, String div, int[] indexs, int size) {
         this.filename = filename;
         this.div = div;
@@ -51,6 +65,11 @@ public class FileSource implements Source {
         this.size = size;
     }
 
+    /**
+     * 读取文件
+     * 
+     * @return 读取行数
+     */
     @Override
     public int read() {
         File file = new File(filename);
@@ -82,7 +101,7 @@ public class FileSource implements Source {
                 if (fields == null) {
                     continue;
                 }
-                List<String> params = new ArrayList<String>();
+                List<String> params = new ArrayList();
                 int len = fields.length;
                 if (indexs == null) {
                     for (int i = 0; i < len; i++) {
@@ -104,13 +123,10 @@ public class FileSource implements Source {
                         }
                     }
                 }
-                taskPool.add(params);
+                Worker.submit(params);
                 rows++;
             }
         } catch (IOException ex) {
-            Logger.info(ex.getMessage());
-            return -1;
-        } catch (InterruptedException ex) {
             Logger.info(ex.getMessage());
             return -1;
         } finally {

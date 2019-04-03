@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.xincao9.ptk.core.model;
+package com.github.xincao9.ptk.core;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- *
+ * 压测报告
+ * 
  * @author xincao9@gmail.com
  */
 public class Report {
 
     private int concurrent; // 并发数
     private int total; // 总请求数
-    private AtomicLong concurrenceCostTime = new AtomicLong(0); // 并行话费的时间和
+    private AtomicLong concurrenceCostTime = new AtomicLong(0); // 并行花费的时间和
     private long startTime; // 自然时间
     private int errorNumber; // 错误数
     private long minCostTime = Integer.MAX_VALUE; // 最小花费时间
@@ -127,5 +128,4 @@ public class Report {
     public void setMessageSize(int messageSize) {
         this.messageSize = messageSize;
     }
-
 }
