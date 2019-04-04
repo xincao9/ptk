@@ -3,6 +3,13 @@ Easy to use java based, stress test suite
 
 ![logo](https://github.com/xincao9/ptk/blob/master/logo.png)
 
+**_特点_**
+
+* 小巧灵活，没有任何第三方依赖
+* 扩展性好，可以自定义数据源
+* 压测逻辑很方便在一个项目中管理，压测试根据命令指定压测方法
+* 经过项目中长期使用，压测的准确度高
+* 打包为可执行jar，方便在任何地方使用
 
 **_Maven dependency_**
 
