@@ -1,6 +1,9 @@
 # ptk (pressure test kit)
 Easy to use java based, stress test suite
 
+![logo](https://github.com/xincao9/ptk/blob/master/logo.png)
+
+
 **_Maven dependency_**
 
 ```
