@@ -37,7 +37,7 @@ public class SourceD implements Source {
     @Override
     public int read() {
         for (int i = 1; i < 5000; i++) {
-            Worker.submit(new D(i)); // 写入到数据压测数据池
+            Worker.submit(new D(i)); // 写入到压测数据池
         }
         return 5000;
     }
