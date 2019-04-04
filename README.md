@@ -73,7 +73,7 @@ java -jar ptk-sample/target/ptk-sample-1.0.jar
 2.com.github.xincao9.ptk.core.Source 接口必须实现, 实现为读取数据源
 3.com.github.xincao9.ptk.core.Method 接口必须实现且需要使用@Test 标识, 实现为需要测试的代码块
 4.com.github.xincao9.ptk.core.Result 接口不必须实现, 通过它可以将测试结果输出到自己的系统中
-5.-c 并发数限制 0 < concurrent <= 1024 默认 1
+5.-c 并发数限制 0 < concurrent <= 1024 默认 CPU核心数
 6.-t 请求延时限制 cd > 0 默认 50ms; 建议阻塞调用设置小点, 计算密集调用设置大点, 小于0 为永不延时
 7.-m 测试的方法类
 
