@@ -3,13 +3,13 @@ Easy to use java based, stress test suite
 
 ![logo](https://github.com/xincao9/ptk/blob/master/logo.png)
 
-**_特点_**
+**_Features_**
 
-* 小巧灵活，没有任何第三方依赖
-* 扩展性好，可以自定义数据源
-* 压测代码很方便在一个项目中管理，压测时根据命令指定压测方法
-* 经过项目中长期使用，压测的准确度高
-* 打包为可执行jar，方便在任何地方使用
+* Small and flexible, without any third party dependence
+* Scalability is good, you can customize the data source
+* The pressure measurement code is easy to manage in one project, and the pressure measurement method is specified according to the command during pressure measurement.
+* After the long-term use of the project, the accuracy of the pressure measurement is high
+* Packaged as an executable jar for easy use anywhere
 
 **_Maven dependency_**
 
@@ -22,9 +22,9 @@ Easy to use java based, stress test suite
 ```
 **_com.github.xincao9.ptk.core.Source_**
 
-数据源：用于测试的数据集合。默认，Source 实现 FileSource和SequenceSource
+Data source: A collection of data for testing. By default, Source implements FileSource and SequenceSource
 
-如果自定义
+If custom
 
 ```
 public class D {
@@ -44,7 +44,7 @@ public class SourceD implements Source {
     @Override
     public int read() {
         for (int i = 1; i < 5000; i++) {
-            Worker.submit(new D(i)); // 写入到压测数据池
+            Worker.submit(new D(i)); // Write to the pressure data pool
         }
         return 5000;
     }
@@ -54,7 +54,7 @@ public class SourceD implements Source {
 
 **_com.github.xincao9.ptk.core.Method_**
 
-测试方法：用于压测的代码块
+Test method: code block for pressure measurement
 
 ```
 @Test(name = "MethodD")
@@ -69,23 +69,23 @@ public class MethodD extends Method {
 }
 ```
 
-**_启动方法_**
+**_Startup method_**
 
 ```
 PTKCore.bootstrap(new SourceD(), args);
 ```
 
-**_命令行执行_**
+**_Command line execution_**
 
 ```
 java -jar ptk-sample/target/ptk-sample-1.0.jar
 1.cmd -[c, t, m] value
-2.com.github.xincao9.ptk.core.Source 接口必须实现, 实现为读取数据源
-3.com.github.xincao9.ptk.core.Method 接口必须实现且需要使用@Test 标识, 实现为需要测试的代码块
-4.com.github.xincao9.ptk.core.Result 接口不必须实现, 通过它可以将测试结果输出到自己的系统中
-5.-c 并发数限制 0 < concurrent <= 1024 默认 CPU核心数
-6.-t 请求延时限制 cd > 0 默认 50ms; 建议阻塞调用设置小点, 计算密集调用设置大点, 小于0 为永不延时
-7.-m 测试的方法类
+2.com.github.xincao9.ptk.core.Source interface must be implemented, implemented as a read data source
+The 3.com.github.xincao9.ptk.core.Method interface must be implemented and needs to be identified by the @Test identifier as the code block to be tested.
+4.com.github.xincao9.ptk.core.Result interface does not have to be implemented, it can output test results to its own system
+5.-c Concurrency limit 0 < concurrent <= 1024 Default CPU core number
+6.-t request delay limit cd > 0 default 50ms; it is recommended to block the call to set a small point, calculate the dense call to set a large point, less than 0 for never delay
+7.-m test method class
 
 java -jar ptk-sample/target/ptk-sample-1.0.jar -m MethodD -c 2 -t -1
 ```

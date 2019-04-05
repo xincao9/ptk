@@ -28,7 +28,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class Worker implements Runnable {
 
     private static final BlockingQueue<Object> TASKS = new LinkedBlockingDeque();
-    public static Long cd = 50L;
+    public static Long cd = 0L;
     public static int concurrent = Runtime.getRuntime().availableProcessors();
     private static Method method;
     private static Thread[] threads;
