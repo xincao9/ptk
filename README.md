@@ -1,5 +1,5 @@
 # ptk (pressure test kit)
-Easy to use java based, stress test suite
+Easy to use java based, stress test suite [中文说明](https://github.com/xincao9/ptk/wiki/%E4%B8%AD%E6%96%87%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
 
 ![logo](https://github.com/xincao9/ptk/blob/master/logo.png)
 
