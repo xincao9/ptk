@@ -84,7 +84,7 @@ java -jar ptk-sample/target/ptk-sample-1.0.jar
 The 3.com.github.xincao9.ptk.core.Method interface must be implemented and needs to be identified by the @Test identifier as the code block to be tested.
 4.com.github.xincao9.ptk.core.Result interface does not have to be implemented, it can output test results to its own system
 5.-c Concurrency limit 0 < concurrent <= 1024 Default CPU core number
-6.-t request delay limit cd > 0 default 50ms; it is recommended to block the call to set a small point, calculate the dense call to set a large point, less than 0 for never delay
+6.-t request delay limit cd > 0 default 0ms; it is recommended to block the call to set a small point, calculate the dense call to set a large point, less than 0 for never delay
 7.-m test method class
 
 java -jar ptk-sample/target/ptk-sample-1.0.jar -m MethodD -c 2 -t -1
