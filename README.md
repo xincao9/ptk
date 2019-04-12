@@ -93,5 +93,5 @@ java -jar ptk-sample/target/ptk-sample-1.0.jar -m MethodD -c 2 -t -1
 
 #### Contact
 
-* [issues](https://github.com/xincao9/ptk/issues)
+* [https://github.com/xincao9/ptk/issues](https://github.com/xincao9/ptk/issues)
 * xincao9@gmail.com
